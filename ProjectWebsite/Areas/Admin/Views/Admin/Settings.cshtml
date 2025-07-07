@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Cài đặt Giao diện";
+}
+
+<div class="admin-settings">
+    <h2><i class="fas fa-cogs me-2"></i>@ViewData["Title"]</h2>
+    <p class="text-muted">Tùy chỉnh giao diện hệ thống quản trị</p>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Màu sắc giao diện</h5>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Màu chủ đạo</label>
+                            <div class="color-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeColor" id="colorBlue" value="blue" checked>
+                                    <label class="form-check-label color-box bg-primary" for="colorBlue"></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeColor" id="colorGreen" value="green">
+                                    <label class="form-check-label color-box bg-success" for="colorGreen"></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeColor" id="colorPurple" value="purple">
+                                    <label class="form-check-label color-box bg-purple" for="colorPurple"></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="themeColor" id="colorRed" value="red">
+                                    <label class="form-check-label color-box bg-danger" for="colorRed"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="logoUpload" class="form-label">Logo hệ thống</label>
+                            <input class="form-control" type="file" id="logoUpload">
+                            <small class="text-muted">Kích thước đề nghị: 200x50px</small>
+                            <div class="mt-2">
+                                <img src="https://via.placeholder.com/200x50" alt="Current Logo" class="img-thumbnail" style="max-height: 50px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="faviconUpload" class="form-label">Favicon</label>
+                            <input class="form-control" type="file" id="faviconUpload">
+                            <small class="text-muted">Kích thước đề nghị: 32x32px</small>
+                            <div class="mt-2">
+                                <img src="https://via.placeholder.com/32x32" alt="Current Favicon" class="img-thumbnail" style="max-height: 32px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Chế độ giao diện</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                                <label class="form-check-label" for="darkModeSwitch">Chế độ tối</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Cài đặt khác</h5>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="adminEmail" class="form-label">Email quản trị</label>
+                    <input type="email" class="form-control" id="adminEmail" value="admin@example.com">
+                </div>
+
+                <div class="mb-3">
+                    <label for="recordsPerPage" class="form-label">Số bản ghi mỗi trang</label>
+                    <select class="form-select" id="recordsPerPage">
+                        <option>10</option>
+                        <option selected>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Thông báo</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                        <label class="form-check-label" for="emailNotifications">Nhận thông báo qua email</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="systemNotifications" checked>
+                        <label class="form-check-label" for="systemNotifications">Hiển thị thông báo hệ thống</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu cài đặt</button>
+                <button type="button" class="btn btn-outline-danger ms-2">Khôi phục mặc định</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-settings {
+        padding: 20px;
+    }
+
+    .color-options {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .color-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .form-check-input:checked + .color-box {
+        border-color: #333;
+    }
+
+    .bg-purple {
+        background-color: #6f42c1;
+    }
+</style>

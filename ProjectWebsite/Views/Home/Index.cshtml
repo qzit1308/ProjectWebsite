@@ -1,0 +1,92 @@
+﻿@using ProjectWebsite.ViewModels
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<div class="container-fluid mt-4">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="title">🔥 SẢN PHẨM KHUYẾN MÃI</span>
+            <a href="#" class="view-all">Xem tất cả <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="product-grid">
+            @foreach (var product in Model.DiscountedProducts)
+            {
+                <div class="product-card">
+                    <div class="product-badge">Giảm giá</div>
+                    <div class="product-image-container">
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/default-book.jpg" : product.ImageUrl)" alt="@product.ProductName" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.ProductName</a>
+                        </h3>
+                        <div class="price-container">
+                            <p class="product-price">@product.Price.ToString("N0")đ</p>
+                        </div>
+                        <button class="add-to-cart btn btn-sm btn-outline-primary w-100" data-id="@product.ProductId">Thêm vào giỏ</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">
+            <span class="title">✨ SẢN PHẨM MỚI NHẤT</span>
+            <a href="#" class="view-all">Xem tất cả <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="product-grid">
+            @foreach (var product in Model.NewestProducts)
+            {
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/default-book.jpg" : product.ImageUrl)" alt="@product.ProductName" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.ProductName</a>
+                        </h3>
+                        <div class="price-container">
+                            <p class="product-price">@product.Price.ToString("N0")đ</p>
+                        </div>
+                        <button class="add-to-cart btn btn-sm btn-outline-primary w-100" data-id="@product.ProductId">Thêm vào giỏ</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart').on('click', function (e) {
+                e.preventDefault();
+                const productId = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "Cart")',
+                    type: 'POST',
+                    data: { productId: productId, quantity: 1 },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        } else {
+                            alert(response.message || 'Có lỗi xảy ra.');
+                        }
+                    },
+                    error: function () {
+                        alert('Không thể kết nối đến server.');
+                    }
+                });
+            });
+        });
+    </script>
+}

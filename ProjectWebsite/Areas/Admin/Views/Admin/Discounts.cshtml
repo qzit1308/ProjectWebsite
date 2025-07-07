@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Discount>
+@{
+    ViewData["Title"] = "Quản lý Khuyến mãi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>@ViewData["Title"]</h3>
+    <a asp-action="CreateDiscount" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i>Tạo khuyến mãi mới
+    </a>
+</div>
+<table class="table table-bordered">
+    <thead><tr><th>ID</th><th>Tên khuyến mãi</th><th>Giảm (%)</th><th>Hành động</th></tr></thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DiscountId</td>
+                <td>@item.DiscountName</td>
+                <td>@item.DiscountPercent</td>
+                <td><a href="#" class="btn btn-sm btn-primary">Sửa</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

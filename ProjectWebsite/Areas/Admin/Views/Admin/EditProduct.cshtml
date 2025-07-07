@@ -1,0 +1,77 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+}
+
+<h3>@ViewData["Title"]: @Model.ProductName</h3>
+<hr />
+
+<form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="ImageUrl" />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Price" class="form-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StockQuantity" class="form-label"></label>
+                    <input asp-for="StockQuantity" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CategoryId" class="form-label"></label>
+                    <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+                        <option value="">-- Chọn danh mục --</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AuthorId" class="form-label"></label>
+                    <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select">
+                        <option value="">-- Chọn tác giả --</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DiscountId" class="form-label">Khuyến mãi</label>
+                    <select asp-for="DiscountId" asp-items="Model.Discounts" class="form-select">
+                        <option value="">-- Không áp dụng --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Hình ảnh hiện tại</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" class="img-thumbnail mb-2" style="max-height: 200px;">
+                }
+                else
+                {
+                    <p>Không có hình ảnh.</p>
+                }
+                <label asp-for="ImageFile" class="form-label">Chọn hình ảnh mới (nếu muốn thay đổi)</label>
+                <input asp-for="ImageFile" class="form-control" type="file" accept="image/*">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        <a asp-action="Products" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>

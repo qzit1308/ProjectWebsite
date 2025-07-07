@@ -1,0 +1,48 @@
+﻿@model ProjectWebsite.Models.Discount
+
+@{
+    ViewData["Title"] = "Tạo khuyến mãi mới";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateDiscount" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="DiscountName" class="form-label">Tên chương trình khuyến mãi</label>
+                <input asp-for="DiscountName" class="form-control" />
+                <span asp-validation-for="DiscountName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DiscountPercent" class="form-label">Phần trăm giảm giá (chỉ nhập số)</label>
+                <input asp-for="DiscountPercent" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="DiscountPercent" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label asp-for="StartDate" class="form-label">Ngày bắt đầu</label>
+                        <input asp-for="StartDate" class="form-control" type="date" />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label asp-for="EndDate" class="form-label">Ngày kết thúc</label>
+                        <input asp-for="EndDate" class="form-control" type="date" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <a asp-action="Discounts" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

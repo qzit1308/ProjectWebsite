@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Bảng điều khiển";
+}
+
+<div class="admin-dashboard">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4">Chào mừng tới trang Quản trị!</h1>
+            <p class="lead">Chọn một mục từ menu bên trái để bắt đầu hoặc xem tổng quan hệ thống bên dưới.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Thống kê người dùng -->
+        <div class="col-md-4 mb-4">
+            <div class="card stat-card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Người dùng</h5>
+                            <h2 class="mb-0">1,024</h2>
+                            <small class="text-white-50">+12% so với tháng trước</small>
+                        </div>
+                        <i class="fas fa-users fa-3x"></i>
+                    </div>
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Users" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thống kê sản phẩm -->
+        <div class="col-md-4 mb-4">
+            <div class="card stat-card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Sản phẩm</h5>
+                            <h2 class="mb-0">568</h2>
+                            <small class="text-white-50">+5% so với tháng trước</small>
+                        </div>
+                        <i class="fas fa-book fa-3x"></i>
+                    </div>
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Products" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thống kê doanh thu -->
+        <div class="col-md-4 mb-4">
+            <div class="card stat-card bg-warning text-dark">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Doanh thu</h5>
+                            <h2 class="mb-0">245M đ</h2>
+                            <small class="text-dark-50">+18% so với tháng trước</small>
+                        </div>
+                        <i class="fas fa-chart-line fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hoạt động gần đây -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-history me-2"></i>Hoạt động gần đây</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>Người dùng</th>
+                            <th>Hành động</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10 phút trước</td>
+                            <td>admin</td>
+                            <td>Thêm sản phẩm</td>
+                            <td>Sách "Lập trình C#"</td>
+                        </tr>
+                        <tr>
+                            <td>25 phút trước</td>
+                            <td>moderator</td>
+                            <td>Cập nhật người dùng</td>
+                            <td>User ID: 1024</td>
+                        </tr>
+                        <tr>
+                            <td>1 giờ trước</td>
+                            <td>admin</td>
+                            <td>Thay đổi cài đặt</td>
+                            <td>Giao diện màu xanh</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-dashboard {
+        padding: 20px;
+    }
+
+    .stat-card {
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-responsive {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .table th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        z-index: 1;
+    }
+</style>

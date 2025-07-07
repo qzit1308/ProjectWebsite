@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="sidebar-inner">
+
+    <nav class="sidebar-nav">
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Index"
+           class="sidebar-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+            <i class="fas fa-chart-pie"></i> <span>Dashboard</span>
+        </a>
+
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Users"
+           class="sidebar-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Users" ? "active" : "")">
+            <i class="fas fa-users-cog"></i> <span>Quản lý User</span>
+        </a>
+
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Products"
+           class="sidebar-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Books" ? "active" : "")">
+            <i class="fas fa-book"></i> <span>Tất cả Sách</span>
+        </a>
+
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Orders"
+           class="sidebar-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Orders" ? "active" : "")">
+            <i class="fas fa-shopping-cart"></i> <span>Quản lý Đơn hàng</span>
+        </a>
+
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Settings"
+           class="sidebar-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Settings" ? "active" : "")">
+            <i class="fas fa-cogs"></i> <span>Cài đặt</span>
+        </a>
+        <a asp-area="Admin" asp-controller="Admin" asp-action="Discounts" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fas fa-tags me-2"></i>Quản lý Khuyến mãi
+        </a>
+    </nav>
+
+    <div class="sidebar-footer mt-auto">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i> <span>Về trang chính</span>
+        </a>
+    </div>
+</div>

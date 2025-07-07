@@ -1,0 +1,66 @@
+﻿@model Dictionary<string, string>
+
+<footer class="site-footer bg-dark text-white pt-5 pb-4">
+    <div class="container text-center text-md-start">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 fw-bold text-primary">@Model.GetValueOrDefault("WebsiteName", "Nhà Sách Online")</h5>
+                <p>
+                    Mang đến cho bạn đọc những đầu sách hay nhất từ nhiều thể loại khác nhau.
+                    Khám phá tri thức và nuôi dưỡng tâm hồn cùng chúng tôi.
+                </p>
+            </div>
+            <div class="col-md-6 col-lg-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 fw-bold">Sản phẩm</h5>
+                <p><a href="#" class="text-white-50">Sách Mới Nhất</a></p>
+                <p><a href="#" class="text-white-50">Sách Bán Chạy</a></p>
+                <p><a href="#" class="text-white-50">Sách Giáo Khoa</a></p>
+                <p><a href="#" class="text-white-50">Văn Phòng Phẩm</a></p>
+            </div>
+            <div class="col-md-6 col-lg-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 fw-bold">Hỗ trợ</h5>
+                <p><a href="#" class="text-white-50">Chính sách đổi trả</a></p>
+                <p><a href="#" class="text-white-50">Hướng dẫn mua hàng</a></p>
+                <p><a href="#" class="text-white-50">Câu hỏi thường gặp</a></p>
+                <p><a href="#" class="text-white-50">Về chúng tôi</a></p>
+            </div>
+            <div class="col-md-6 col-lg-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 fw-bold">Liên hệ</h5>
+                <p><i class="fas fa-home me-3"></i> @Model.GetValueOrDefault("Address", "123 Default Address")</p>
+                <p><i class="fas fa-envelope me-3"></i> @Model.GetValueOrDefault("ContactEmail", "support@example.com")</p>
+                <p><i class="fas fa-phone me-3"></i> @Model.GetValueOrDefault("ContactPhone", "1900 0000")</p>
+            </div>
+        </div>
+        <hr class="my-3">
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8">
+                <p class="mb-0">
+                    © @DateTime.Now.Year Copyright:
+                    <a href="#" class="text-primary fw-bold">@Model.GetValueOrDefault("WebsiteName", "NhaSachOnline.com")</a>
+                </p>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="text-center text-md-end">
+                    <a href="@Model.GetValueOrDefault("FacebookURL", "#")" target="_blank" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-facebook-f"></i></a>
+                    <a href="@Model.GetValueOrDefault("YoutubeURL", "#")" target="_blank" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-youtube"></i></a>
+                    <a href="@Model.GetValueOrDefault("InstagramURL", "#")" target="_blank" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-instagram"></i></a>
+                    <a href="@Model.GetValueOrDefault("TiktokURL", "#")" target="_blank" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="floating-buttons">
+    <a href="@Model.GetValueOrDefault("FacebookURL", "#")" target="_blank" class="f-button messenger-button">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="@Model.GetValueOrDefault("ZaloLink", "#")" target="_blank" class="f-button zalo-button">
+        <i class="fa-brands fa-viber"></i>
+    </a>
+    <a href="@Model.GetValueOrDefault("TiktokURL", "#")" target="_blank" class="f-button tiktok-button">
+        <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="#" id="back-to-top" class="f-button back-to-top-button">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+</div>

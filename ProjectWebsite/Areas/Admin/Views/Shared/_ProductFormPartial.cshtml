@@ -1,0 +1,93 @@
+﻿@model ProductViewModel
+
+<form asp-area="Admin" asp-controller="Admin" asp-action="@(Model.ProductId == 0 ? "CreateProduct" : "UpdateProduct")" method="post" enctype="multipart/form-data">
+    <div class="modal-header">
+        <h5 class="modal-title">@(Model.ProductId == 0 ? "Thêm" : "Cập nhật") sản phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="ImageUrl" />
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="mb-3">
+                    <label asp-for="ProductName" class="form-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Price" class="form-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="StockQuantity" class="form-label"></label>
+                        <input asp-for="StockQuantity" class="form-control" />
+                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="DiscountId" class="form-label">Khuyến mãi</label>
+                        <select asp-for="DiscountId" asp-items="Model.Discounts" class="form-select">
+                            <option value="">-- Không có khuyến mãi --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label class="form-label">Hình ảnh</label>
+                    <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-book.jpg" : Model.ImageUrl)" id="imagePreview" class="img-thumbnail mb-2" style="max-height: 200px">
+                    <input asp-for="ImageFile" class="form-control" accept="image/*" onchange="previewImage(this, '#imagePreview')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="CategoryId" class="form-label"></label>
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="AuthorId" class="form-label"></label>
+                <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select">
+                    <option value="">-- Chọn tác giả --</option>
+                </select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Lưu</button>
+    </div>
+</form>
+
+<script>
+    // Đảm bảo hàm này được định nghĩa chỉ một lần hoặc được gọi đúng cách
+    if (typeof previewImage !== 'function') {
+        function previewImage(input, previewerId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewerId).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    // Kích hoạt lại validation cho form vừa được load bằng AJAX
+    $(function() {
+        var form = $("#productModal").find("form");
+        $.validator.unobtrusive.parse(form);
+    });
+</script>

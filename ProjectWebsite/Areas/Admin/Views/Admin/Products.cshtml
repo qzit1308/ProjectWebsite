@@ -1,0 +1,149 @@
+﻿@model ProductsPageViewModel
+@{
+    ViewData["Title"] = "Quản lý Sách";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">@TempData["SuccessMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">@TempData["ErrorMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+}
+
+<div class="admin-header">
+    <h2><i class="fas fa-book me-2"></i>@ViewData["Title"]</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        <i class="fas fa-plus me-2"></i>Thêm sản phẩm
+    </button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr><th>ID</th><th>Tên sách</th><th>Tác giả</th><th>Danh mục</th><th>Giá</th><th>Tồn kho</th><th>Hành động</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.ProductId</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                    {
+                                        <img src="@product.ImageUrl" class="rounded me-2" width="40" height="60" style="object-fit: cover">
+                                    }
+                                    <span>@product.ProductName</span>
+                                </div>
+                            </td>
+                            <td>@product.Author?.AuthorName</td>
+                            <td>@product.Category?.CategoryName</td>
+                            <td class="text-end">@product.Price.ToString("N0")đ</td>
+                            <td class="text-center">@product.StockQuantity</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-outline-primary" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-outline-danger delete-product" data-id="@product.ProductId" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Admin" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm sản phẩm mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="NewProduct.ProductName" class="form-label"></label>
+                        <input asp-for="NewProduct.ProductName" class="form-control" />
+                        <span asp-validation-for="NewProduct.ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="NewProduct.Description" class="form-label"></label>
+                        <textarea asp-for="NewProduct.Description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NewProduct.Price" class="form-label"></label>
+                            <input asp-for="NewProduct.Price" class="form-control" />
+                            <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NewProduct.StockQuantity" class="form-label"></label>
+                            <input asp-for="NewProduct.StockQuantity" class="form-control" />
+                            <span asp-validation-for="NewProduct.StockQuantity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NewProduct.CategoryId" class="form-label"></label>
+                            <select asp-for="NewProduct.CategoryId" asp-items="Model.NewProduct.Categories" class="form-select">
+                                <option value="">-- Chọn danh mục --</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NewProduct.AuthorId" class="form-label"></label>
+                            <select asp-for="NewProduct.AuthorId" asp-items="Model.NewProduct.Authors" class="form-select">
+                                <option value="">-- Chọn tác giả --</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.AuthorId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- Thêm trường upload ảnh -->
+                    <div class="mb-3">
+                        <label asp-for="NewProduct.ImageFile" class="form-label">Ảnh sách</label>
+                        <input asp-for="NewProduct.ImageFile" type="file" class="form-control" accept="image/*" />
+                        <span asp-validation-for="NewProduct.ImageFile" class="text-danger"></span>
+                        <small class="text-muted">Chọn ảnh với tỷ lệ 3:4 để hiển thị tốt nhất</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Chỉ cần JavaScript cho nút Xóa
+        $(document).on('click', '.delete-product', function () {
+            const productId = $(this).data('id');
+            const productName = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+            if (confirm(`Bạn có chắc muốn xóa sản phẩm "${productName}"?`)) {
+                $.post('@Url.Action("DeleteProduct", "Admin", new { area = "Admin" })', { id: productId })
+                    .done(function () {
+                        location.reload();
+                    })
+                    .fail(function () {
+                        alert('Có lỗi xảy ra khi xóa sản phẩm.');
+                    });
+            }
+        });
+    </script>
+}

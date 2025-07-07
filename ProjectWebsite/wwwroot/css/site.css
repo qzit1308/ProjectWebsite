@@ -1,0 +1,226 @@
+﻿/* --- TÙY CHỈNH HEADER CHUYÊN NGHIỆP --- */
+
+/* Thêm khoảng trống cho body để header fixed-top không che mất nội dung */
+body {
+    padding-top: 70px;
+}
+
+.navbar {
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: #6f42c1 !important; /* Màu tím cho thương hiệu */
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #343a40 !important;
+    margin: 0 0.5rem;
+    position: relative;
+    padding-bottom: 0.5rem !important;
+}
+
+    /* Hiệu ứng gạch chân khi hover */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #6f42c1;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+/* Tùy chỉnh thanh tìm kiếm */
+.search-form {
+    min-width: 300px;
+}
+
+    .search-form .form-control {
+        border-radius: 20px;
+    }
+
+    .search-form .btn {
+        border-radius: 20px;
+    }
+
+/* Tùy chỉnh các icon bên phải */
+.header-icons .nav-link {
+    font-size: 1.2rem;
+}
+
+    .header-icons .nav-link::after {
+        display: none; /* Bỏ hiệu ứng gạch chân cho icon */
+    }
+
+/* Responsive cho thanh tìm kiếm trên màn hình nhỏ */
+@@media (max-width: 992px) {
+    .search-form {
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+/* --- TÙY CHỈNH FOOTER CHUYÊN NGHIỆP --- */
+
+.site-footer {
+    font-size: 0.9rem;
+}
+
+    .site-footer h5 {
+        color: #fff;
+    }
+
+    .site-footer .text-primary {
+        color: #8e82de !important; /* Màu nhấn */
+    }
+
+    .site-footer a {
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .site-footer a:hover {
+            color: #fff !important;
+            text-decoration: underline;
+        }
+
+    .site-footer .btn-outline-light {
+        border-color: #4f4f4f;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+    }
+
+        .site-footer .btn-outline-light:hover {
+            background-color: #8e82de;
+            border-color: #8e82de;
+        }
+/* --- CSS CHO FLOATING BUTTONS --- */
+
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.f-button {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f06, #a300e0); /* Màu gradient hồng-tím */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .f-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+/* Nút back-to-top mặc định ẩn */
+#back-to-top {
+    display: none;
+    background: #6c757d;
+}
+
+/* Badge số lượng cho giỏ hàng */
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+}
+
+/* ============================================= */
+/* == CODE SỬA LỖI GIAO DIỆN DI ĐỘNG (MOBILE) == */
+/* ============================================= */
+
+/* Áp dụng cho màn hình có chiều rộng tối đa là 991px (tablets và mobiles) */
+@@media (max-width: 991.98px) {
+    /* Sửa lại thanh tìm kiếm trong menu di động */
+    .navbar-collapse .search-form {
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    /* Sửa các icon user/cart trong menu di động */
+    .navbar-collapse .header-icons {
+        width: 100%;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+    }
+
+        .navbar-collapse .header-icons .nav-link {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+}
+
+
+/* Áp dụng cho màn hình có chiều rộng tối đa là 768px (mobiles) */
+@@media (max-width: 767.98px) {
+    /* --- Sửa lỗi cho Lưới Sản Phẩm --- */
+    /* Quy tắc này áp dụng cho cả .product-grid ở trang chủ và .product-list ở trang sách */
+    .product-grid, .product-list {
+        grid-template-columns: repeat(2, 1fr) !important; /* !important để đảm bảo ghi đè */
+        gap: 10px;
+    }
+
+    .section-header .title {
+        font-size: 16px;
+    }
+    /* --- Sửa lỗi cho các Tab "Xu Hướng" --- */
+    .shopping-trends-tabs {
+        display: flex;
+        overflow-x: auto; /* Cho phép cuộn ngang các tab */
+        white-space: nowrap; /* Ngăn các tab xuống dòng */
+        -ms-overflow-style: none; /* Ẩn thanh cuộn trên IE, Edge */
+        scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+    }
+        /* Ẩn thanh cuộn trên Chrome, Safari */
+        .shopping-trends-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+    .tab-item {
+        flex-shrink: 0; /* Ngăn các tab bị co lại */
+    }
+    /* Giảm kích thước nút floating để không chiếm nhiều diện tích */
+    .f-button {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}

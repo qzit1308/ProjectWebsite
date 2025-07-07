@@ -1,0 +1,17 @@
+﻿@* File: Views/Shared/Components/CartCount/Default.cshtml *@
+@model ProjectWebsite.ViewModels.CartCountViewModel
+
+@* Đảm bảo chỉ hiển thị badge khi có sản phẩm trong giỏ *@
+@if (Model.ItemCount > 0)
+{
+    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em;">
+        @Model.ItemCount
+    </span>
+}
+else
+{
+    @* Hiển thị một span trống hoặc ẩn nếu không có sản phẩm.
+       Để tránh việc badge bị co lại khi không có số, ta có thể ẩn nó đi. *@
+    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em; display: none;">
+    </span>
+}

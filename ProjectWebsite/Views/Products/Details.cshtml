@@ -1,0 +1,124 @@
+﻿@using ProjectWebsite.ViewModels
+@model ProductDetailViewModel
+
+@{
+    ViewData["Title"] = Model.Product.ProductName;
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="@(string.IsNullOrEmpty(Model.Product.ImageUrl) ? "/images/default-book.jpg" : Model.Product.ImageUrl)"
+                 alt="@Model.Product.ProductName" class="img-fluid rounded shadow-sm">
+        </div>
+
+        <div class="col-md-7">
+            <h2>@Model.Product.ProductName</h2>
+            <p class="text-muted">
+                <span>Tác giả: @Model.Product.Author?.AuthorName</span> |
+                <span>Danh mục: @Model.Product.Category?.CategoryName</span>
+            </p>
+
+            <div class="price-section my-3">
+                @if (Model.Product.Discount != null)
+                {
+                    var discountedPrice = Model.Product.Price * (1 - Model.Product.Discount.DiscountPercent / 100);
+                    <span class="h3 text-danger me-3">@discountedPrice.ToString("N0")đ</span>
+                    <span class="h5 text-muted"><s>@Model.Product.Price.ToString("N0")đ</s></span>
+                    <span class="badge bg-danger ms-2">Giảm @Model.Product.Discount.DiscountPercent%</span>
+                }
+                else
+                {
+                    <span class="h3 text-primary">@Model.Product.Price.ToString("N0")đ</span>
+                }
+            </div>
+
+            <div class="product-description my-4">
+                <h5 class="fw-bold">Mô tả</h5>
+                <p>@Model.Product.Description</p>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <label for="quantity" class="form-label">Số lượng:</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" style="width: 80px;">
+                </div>
+                <button class="btn btn-primary btn-lg add-to-cart" data-id="@Model.Product.ProductId">
+                    <i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.RelatedProducts.Any())
+    {
+        <hr class="my-5">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="title">SẢN PHẨM LIÊN QUAN</span>
+            </div>
+            <div class="product-grid">
+                @foreach (var relatedProduct in Model.RelatedProducts)
+                {
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@relatedProduct.ProductId">
+                                <img src="@(string.IsNullOrEmpty(relatedProduct.ImageUrl) ? "/images/default-book.jpg" : relatedProduct.ImageUrl)" alt="@relatedProduct.ProductName" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@relatedProduct.ProductId">@relatedProduct.ProductName</a>
+                            </h3>
+                            <div class="price-container">
+                                <p class="product-price">@relatedProduct.Price.ToString("N0")đ</p>
+                            </div>
+                            <button class="add-to-cart btn btn-sm btn-outline-primary w-100" data-id="@relatedProduct.ProductId">Thêm vào giỏ</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var cartToastEl = document.getElementById('cartToast');
+            var cartToast = cartToastEl ? new bootstrap.Toast(cartToastEl) : null;
+
+            $('.add-to-cart').on('click', function (e) {
+                e.preventDefault();
+                const productId = $(this).data('id');
+                const quantity = $('#quantity').val() || 1;
+
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "Cart")',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        quantity: parseInt(quantity)
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#cart-count').text(response.count).show();
+                            window.location.href = '@Url.Action("Index", "Home")';
+                            if(cartToast) {
+                                $('#cartToast .toast-body').text(response.message);
+                                cartToast.show();
+                            } else {
+                                alert(response.message);
+                            }
+                        } else {
+                            alert(response.message || 'Có lỗi xảy ra.');
+                        }
+                    },
+                    error: function () {
+                        alert('Không thể kết nối đến server.');
+                    }
+                });
+            });
+        });
+    </script>
+}
